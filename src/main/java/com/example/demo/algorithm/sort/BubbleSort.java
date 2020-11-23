@@ -1,15 +1,21 @@
 package com.example.demo.algorithm.sort;
 
-import java.util.Arrays;
+import com.example.demo.algorithm.logarithm.SortLogarithm;
 
 /**
- * 冒泡排序算法
+ * @Project: algorithm
+ * @Package: com.example.demo.algorithm.logarithm
+ * @ClassName: BubbleSort
+ * @Author: huxy
+ * @Date: 2020/11/19 15:38
+ * @Version: 1.0
+ * @Description: 冒泡排序算法
  * 排序思想：  首先，从0位置出发到n-1位置为止，相邻两个数作比较，将前一个比后一个大则交换位置，反之不交换，结束后最大数将会在n-1位置
  *           其次，从0位置出发到n-2位置为止，相邻两个数作比较，将前一个比后一个大则交换位置，反之不交换，结束后第二大数将会在n-2位置
  *           重复此操作，直到0位位置出发到0位置为止
  *  举例：(1)要排序数组:[10,1,35,61,89,36,55]
  *       (2)第一趟排序：
- * 　　　　　　第一次排序：10和1比较，10大于1，交换位置 　　 　  [1,10,35,61,89,36,55]
+ * 　　　　　　第一次排序：10和1比较，10大于1，交换位置 　　 　[1,10,35,61,89,36,55]
  * 　　　　　　第二趟排序：10和35比较，10小于35，不交换位置　　[1,10,35,61,89,36,55]
  * 　　　　　　第三趟排序：35和61比较，35小于61，不交换位置　　[1,10,35,61,89,36,55]
  * 　　　　　　第四趟排序：61和89比较，61小于89，不交换位置　　[1,10,35,61,89,36,55]
@@ -56,7 +62,7 @@ public class BubbleSort {
             return;
         }
         //遍历整个数组
-        for (int i = 0; i < arr.length-1; i++) {
+        for (int i = 1; i < arr.length-1; i++) {
             for (int j = 0; j < arr.length-i-1; j++) {//冒泡排序是将大的数字通过每次比较安排放到右边，因而循环i次则靠右的i个数值有序，所以每次待排序区间为0位置到arr.length-i-1位置，循环该区间
                 if (arr [j] > arr [j+1]){//将当前位置与当前位置加1位置的比较，当前大则交换
                     swap(arr , j , j+1);//交换数据位置
@@ -93,12 +99,13 @@ public class BubbleSort {
     }
 
     public static void main(String[] args){
-        int [] arr = {
+        /*int [] arr = {
                 1,5,2,4,6,2,5,7,99,34,54
         };
         System.out.println("排序前：" + Arrays.toString(arr));
         bubbleSort2(arr);
-        System.out.println("排序后：" + Arrays.toString(arr));
+        System.out.println("排序后：" + Arrays.toString(arr));*/
+        SortLogarithm.LogarithmTest(BubbleSort.class , "bubbleSort1" , "bubbleSort2" , 10000 , 10 , 100 );
     }
 
 }

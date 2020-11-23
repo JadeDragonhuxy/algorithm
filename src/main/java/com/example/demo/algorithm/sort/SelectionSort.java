@@ -3,7 +3,13 @@ package com.example.demo.algorithm.sort;
 import java.util.Arrays;
 
 /**
- * 选择排序算法
+ * @Project: algorithm
+ * @Package: com.example.demo.algorithm.logarithm
+ * @ClassName: SelectionSort
+ * @Author: huxy
+ * @Date: 2020/11/19 09:56
+ * @Version: 1.0
+ * @Description: 选择排序算法
  * 排序思想：  首先，将0位置当做基准，在1位置到n-1位置之间找出最小的数，将最小数与0位置数交换，0位置数有序
  *           其次，将1位置当做基准，在2位置到n-1位置之间找出最小的数，将最小数与1位置数交换，0位置到1位置数有序
  *           重复此操作，直到0位置到n-1位置数有序
