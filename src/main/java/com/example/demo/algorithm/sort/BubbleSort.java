@@ -62,7 +62,7 @@ public class BubbleSort {
             return;
         }
         //遍历整个数组
-        for (int i = 1; i < arr.length-1; i++) {
+        for (int i = 0; i < arr.length-1; i++) {
             for (int j = 0; j < arr.length-i-1; j++) {//冒泡排序是将大的数字通过每次比较安排放到右边，因而循环i次则靠右的i个数值有序，所以每次待排序区间为0位置到arr.length-i-1位置，循环该区间
                 if (arr [j] > arr [j+1]){//将当前位置与当前位置加1位置的比较，当前大则交换
                     swap(arr , j , j+1);//交换数据位置
@@ -105,7 +105,7 @@ public class BubbleSort {
         System.out.println("排序前：" + Arrays.toString(arr));
         bubbleSort2(arr);
         System.out.println("排序后：" + Arrays.toString(arr));*/
-        SortLogarithm.LogarithmTest(BubbleSort.class , "bubbleSort1" , "bubbleSort2" , 10000 , 10 , 100 );
+        SortLogarithm.LogarithmTest(BubbleSort.class , "bubbleSort1" , "bubbleSort2" , 1000000 , 1000 , 10000 );
     }
 
 }
