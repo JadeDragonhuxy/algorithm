@@ -1,6 +1,5 @@
 package com.example.demo.algorithm.lookup;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -25,8 +24,11 @@ import java.util.Arrays;
  *                         但是在最坏的的情况下，直到划分到最后才找到；对于二分次数必定满足：2^k=n（k指划分次数，n为数组长度）（例如：长度为16的数组，8位置，3位置，1位置，直到0位置最后一次，最多划分4次，2^4=16）
  *                         对于长度n处于2^k<n<2^j，也只需二分k次（不信你试），因而时间负责度为：O（logn）
  *                         综述：二分查找的时间复杂度为：O（logn）（时间负责度取最坏情况下）
- *               空间复杂度：
+ *               空间复杂度：只使用了有限个数的常量，因而空间复杂度为：O(1)
  *
+ *               注意：使用二分法必须数组有序吗？不是，在特定的题目下是不需要数组有序也能二分的，详情例题请见局部最小值问题。
+ *
+ *               学习日期：2020年11月23日，22:38（what are you 弄啥嘞！进度这么慢，坚持学习，加油）
  */
 public class SimpleBinarySearch {
 
@@ -40,8 +42,8 @@ public class SimpleBinarySearch {
         int L = 0;  //查找区域左边界，初始时在数组开头
         int R = arr.length - 1;  //查找区域右边界，初始时在数组最后位置
         int mid = 0;  //中间位置索引值
-        while(L < R){
-            mid = (L +R)/2; //计算中间位置索引，此公式存在缺陷：当数组特别长，L和R都十分巨大时，相加会发生越界，优化写法：L+(R-L)/2,((L +R)/2)必在L和R中间，就等于L到R的个数加上L的位置；又因为/2就等同于带符号右移1位，原式就等于：L+((R-L)>>1)
+        while(L <= R){
+            mid = (L + R)/2; //计算中间位置索引，此公式存在缺陷：当数组特别长，L和R都十分巨大时，相加会发生越界，优化写法：L+(R-L)/2,((L +R)/2)必在L和R中间，就等于L到R的个数加上L的位置；又因为/2就等同于带符号右移1位，原式就等于：L+((R-L)>>1)
             // mid = L+((R-L)>>1);
             if (arr[mid] == num){ //相等则当前就说目标值
                 return true;
@@ -54,18 +56,44 @@ public class SimpleBinarySearch {
         return arr[mid] == num;
     }
 
+    /*
+     二分查找方法，arr待查找数组，num 目标值
+    */
+    public static boolean simpleBinarySearch1(int[] arr , int num){
+        if (arr == null || arr.length == 0){ //当数组为null或者数组长度为0时，肯定不存在目标值
+            return false;
+        }
+        int L = 0;  //查找区域左边界，初始时在数组开头
+        int R = arr.length - 1;  //查找区域右边界，初始时在数组最后位置
+        int mid = 0;  //中间位置索引值
+        while(L < R){
+            mid = (L + R)/2; //计算中间位置索引，此公式存在缺陷：当数组特别长，L和R都十分巨大时，相加会发生越界，优化写法：L+(R-L)/2,((L +R)/2)必在L和R中间，就等于L到R的个数加上L的位置；又因为/2就等同于带符号右移1位，原式就等于：L+((R-L)>>1)
+            // mid = L+((R-L)>>1);
+            if (arr[mid] == num){ //相等则当前就说目标值
+                return true;
+            }else if(arr[mid] > num){ //大于目标值，则目标值在前半边，R前移
+                R = mid - 1;
+            }else { //小于目标值，则目标值在后半边，L后移
+                L = mid + 1;
+            }
+        }
+        return arr[L] == num;
+    }
+
     //对数器
     public static void logarithm(){
-        int testTime = 10000;
-        int maxSize = 100;
-        int maxValue = 1000;
+        int testTime = 100000;
+        int maxSize = 10000;
+        int maxValue = 100000;
         boolean succeed = true;
         for (int i = 0 ; i < testTime ; i++){
             int arr[] = generateRandomArray(maxSize , maxValue);
             Arrays.sort(arr);
             int value = (int)((maxValue + 1) * Math.random()) - (int)(maxValue * Math.random()); //生成随机目标值
-            if (comparator(arr , value) != simpleBinarySearch(arr , value)){
+            if (comparator(arr , value) != simpleBinarySearch1(arr , value)){
                 succeed = false;
+                System.out.println(Arrays.toString(arr));
+                System.out.println(value);
                 System.out.println("对比方法结果：" +comparator(arr , value));
                 System.out.println("二分法结果：" +simpleBinarySearch(arr , value));
                 break;
@@ -95,6 +123,8 @@ public class SimpleBinarySearch {
 
     public static void main(String[] args){
         logarithm();
+//        int [] arr = new int []{-66, -59, -47, -17, -1, 4, 7, 65, 86};
+//        simpleBinarySearch(arr , 4);
     }
 
 }
