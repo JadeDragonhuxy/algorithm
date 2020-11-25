@@ -1,5 +1,7 @@
 package com.example.demo.algorithm.lookup;
 
+import java.util.Arrays;
+
 /**
  * @Project: algorithm
  * @Package: com.example.demo.algorithm.lookup
@@ -23,12 +25,83 @@ package com.example.demo.algorithm.lookup;
  *                    （6）找到>=3的最左位置为tar=4位置。
  *               时间复杂度：必须O（logN）,因为必须二分完全，直到不能二分为止
  *               空间复杂度：必须O（1），因为只使用有限变量记录位置
+ *
+ *               学习日期：2020年11月24日，22:38（进度有点慢哦，坚持学习，加油）
  */
 public class BinarySearchExampleOne {
 
     public static int LeftmostPositionSearch(int[] arr , int targetValue){
-        return 1;
+        if (arr == null || arr.length == 0){
+            return  -1;
+        }
+        int L = 0;
+        int R = arr.length - 1;
+        int index = -1;
+        while (L <= R) {
+            int mid = L + ((R - L) >> 1);
+            if (arr [mid] >= targetValue){
+                index = mid;
+                R = mid - 1;
+            }else {
+                L = mid + 1;
+            }
+        }
+        return index;
     }
 
+    public static void logarithm(){
+        int testTime = 1000000;
+        int maxSize = 10000;
+        int maxValue = 100000;
+        Boolean succeed = true;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr = generateRandomArray(maxSize , maxValue);
+            Arrays.sort(arr);
+            int value = (int)((maxValue + 1) * Math.random()) - (int)(maxValue * Math.random());
+            if (comparator(arr , value) != LeftmostPositionSearch(arr , value)){
+                succeed = false;
+                printArray(arr);
+                System.out.println("暴力查找：" + comparator(arr , value));
+                System.out.println("二分法：" + LeftmostPositionSearch(arr , value));
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+    }
+
+    public static void printArray(int[] arr) {
+        if (arr == null){
+            return;
+        }
+        System.out.print("[ ");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[1] + ',');
+        }
+        System.out.print(" ]");
+        System.out.println();
+    }
+
+    private static int[] generateRandomArray(int maxSize, int maxValue) {
+        int [] arr = new int [(int)((maxSize + 1) * Math.random())];
+        for (int i = 0; i < arr.length; i++) {
+            arr [i] = (int) ((maxValue + 1) * Math.random()) - (int)(maxValue * Math.random());
+        }
+        return arr;
+    }
+
+    public static int comparator(int[] arr , int targetValue){
+        if (arr == null || arr.length == 0){
+            return  -1;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= targetValue){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args){
+        logarithm();
+    }
 
 }
