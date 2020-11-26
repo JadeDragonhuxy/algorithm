@@ -60,6 +60,27 @@ public class EorExampleOne {
         return eor;
     }
 
+    /**
+     *@参数:  num 待查数
+     *@返回值:  void
+     *@创建人:  huxyd
+     *@创建时间:  2020/11/26 10:19
+     *@修改人和其它信息:
+     *@描述: 题目三：怎么把一个int类型的数，提取出最右侧的1来
+     */
+    public static int rightone(int num){
+        return num & (-num);
+        /**
+         * 原理：例如：7056 二进制：0 1 1 0 1 1 1 0 0 1 0 0 0 0
+         *         ～7056 二进制：1 0 0 1 0 0 0 1 1 0 1 1 1 1
+         *   （～7056 + 1）二进制：1 0 0 1 0 0 0 1 1 1 0 0 0 0
+         * 所以：7056 & （～7056 + 1）
+         *                二进制：0 0 0 0 0 0 0 0 0 1 0 0 0 0
+         *      7056 & （～7056 + 1）运算后就能得到 7068最右侧的1
+         *      而 （～7056 + 1） = （- 7056）
+         *      a & ((~a) + 1) = a & (-a)  (反码与补码)
+         */
+    }
 
     public static void main(String[] args){
         /*int [] arr = {3,2,5,4,6};
@@ -67,10 +88,12 @@ public class EorExampleOne {
         swap(arr , 2,4);
         System.out.println("交换后" + Arrays.toString(arr));*/
 
-        int [] arr = {1,2,3,3,2,1,2,2,3,2,3,2,1};
+        /*int [] arr = {1,2,3,3,2,1,2,2,3,2,3,2,1};
         int num = FindOddTimesNumber(arr);
-        System.out.println(num);
+        System.out.println(num);*/
 
+        int a = 196;
+        System.out.println(rightone(a));
     }
 
 }
