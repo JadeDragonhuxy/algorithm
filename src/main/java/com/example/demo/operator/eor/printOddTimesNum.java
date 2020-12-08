@@ -1,5 +1,7 @@
 package com.example.demo.operator.eor;
 
+import java.util.*;
+
 /**
  * @Project: algorithm
  * @Package: com.example.demo.operator.eor
@@ -18,9 +20,9 @@ package com.example.demo.operator.eor;
  */
 public class printOddTimesNum {
 
-    public static void printOddTimesNum(int[] arr){
+    public static int[] printOddTimesNum(int[] arr){
         if (arr == null || arr.length == 0){
-            return;
+            return null;
         }
         int eor = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -39,21 +41,124 @@ public class printOddTimesNum {
             }
         }
         int otherOne = eor ^ one;
-        System.out.println("其中一个奇数个数为：" + one);
-        System.out.println("另外一个奇数个数为：" + otherOne);
+        int[] result = new int [2];
+        result[0] = one;
+        result[1] = otherOne;
+        return result;
+        /*System.out.println("其中一个奇数个数为：" + one);
+        System.out.println("另外一个奇数个数为：" + otherOne);*/
     }
 
-    public static int[] randomArray(int maxKind , int range, int k, int m){
-        return null;
+    public static int[] comparator(int[] arr ){
+        if (arr == null || arr.length == 0){
+            return null;
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : arr) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, 1);
+            }
+        }
+        int [] result = new int [2];
+        int i = 0;
+        for (int num : map.keySet()) {
+            if ((map.get(num) % 2) != 0) {
+                result [i++] = num;
+            }
+        }
+        return result;
+    }
+
+    public static void logarithm(){
+        int testTime = 10000;
+        int maxSize = 10000;
+        int range = 10000;
+        int maxKind = 100;
+        Boolean succeed = true;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr = randomArray(maxKind , range , maxSize);
+            int[] ans1 = printOddTimesNum(arr);
+            int[] ans2 = comparator(arr);
+            Arrays.sort(ans1);
+            Arrays.sort(ans2);
+            if (!Arrays.equals(ans1 , ans2)){
+                succeed = false;
+                printArray(arr);
+                printArray(ans1);
+                printArray(ans2);
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+    }
+
+
+    public static int[] randomArray(int maxKind , int range, int maxSize){
+        //数组中包含多少种数
+        int arrayKind = 0;
+        do {
+            arrayKind = (int) ((Math.random() * maxKind)+1);
+        }while (arrayKind < 3);
+        List<Integer> integers = new ArrayList<> ();
+        HashSet<Integer> set = new HashSet<>();
+        for (int i = 1; i <= 2; i++){
+            int num = 0;
+            do {
+                num = randomNumber(range);
+            }while (set.contains(num));
+            set.add(num);
+            int size = (((int)(Math.random() * maxSize)) * 2) + 1;
+            for (int j = 0; j < size; j++){
+                integers.add(num);
+            }
+        }
+        for (int i = 0; i < arrayKind - 2; i++){
+            int num = 0;
+            do {
+                num = randomNumber(range);
+            }while (set.contains(num));
+            set.add(num);
+            int size = ((int)(Math.random() * maxSize)) * 2;
+            for (int j = 0; j < size; j++){
+                integers.add(num);
+            }
+        }
+        int[] arr = new int[integers.size()];
+        for (int i = 0; i < integers.size(); i++) {
+            arr[i] = integers.get(i);
+        }
+        // arr 填好了
+        for (int i = 0; i < arr.length; i++) {
+            // i 位置的数，我想随机和j位置的数做交换
+            int j = (int) (Math.random() * arr.length);// 0 ~ N-1
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+        return arr;
     }
 
     public static int randomNumber(int range) {
         return ((int) (Math.random() * range) + 1) - ((int) (Math.random() * range) + 1);
     }
 
+    private static void printArray(int[] arr) {
+        if (arr == null){
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+",");
+        }
+        System.out.println();
+    }
 
     public static void main(String[] args){
-        
+//        int[] arr = randomArray(5,100,20);
+//        printArray(arr);
+//        int[] arr2 = comparator(arr);
+//        printArray(arr2);
+        logarithm();
     }
 
 }
