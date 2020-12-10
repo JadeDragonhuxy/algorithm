@@ -1,6 +1,6 @@
-package com.example.demo.algorithm.sort;
+package com.example.system.algorithm.sort;
 
-import com.example.demo.algorithm.logarithm.SortLogarithm;
+import com.example.system.algorithm.logarithm.SortLogarithm;
 
 /**
  * @Project: algorithm

@@ -1,4 +1,4 @@
-package com.example.demo.algorithm.logarithm;
+package com.example.system.algorithm.logarithm;
 
 import java.lang.reflect.Method;
 

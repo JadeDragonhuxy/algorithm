@@ -1,4 +1,4 @@
-package com.example.demo.algorithm.lookup;
+package com.example.system.algorithm.lookup;
 
 import java.util.Arrays;
 
